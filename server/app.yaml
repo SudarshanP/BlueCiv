@@ -1,0 +1,11 @@
+application: p2psalt
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /html
+  static_dir: html
+
+- url: /.*
+  script: main.py
