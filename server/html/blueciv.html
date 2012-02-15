@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>FlyCrosser</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/json2.js"></script>
+<script type="text/javascript" src="js/coffee-script.js"></script>
+<script type="text/javascript" src="js/handlebars.js"></script>
+<script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/coffeescript">
+$ ->
+  window.formData={}
+  window.formHandler = (response)->
+    $("#key").val response
+  window.keyGetHandler = (response)->
+    alert response
+  window.keyDelHandler = (response)->
+    alert response
+  $("#submit").click ->
+    window.formData["title"]=$("#title").val()
+    window.formData["body"]=$("#body").val()
+    server.post("/api/create/json",JSON.stringify(window.formData),formHandler)
+  $("#keyGet").click ->
+    server.post("/api/get/json/"+$("#key").val(),"",keyGetHandler)
+  $("#keyDel").click ->
+    server.post("/api/delete/json/"+$("#key").val(),"",keyDelHandler)
+
+</script>
+</head>
+<body>
+  <div><input id="title" size="40" type="text" /></div>
+  <div><textarea id="body" cols="40" rows="10"></textarea></div>
+  <div><input id="submit" type='button' value='Submit' class="btn primary"/></div>
+  <div><input id="key" size="40" type="text" /></div>
+  <div><input id="keyGet" type='button' value='getFromDB' class="btn primary"/>
+  <input id="keyDel" type='button' value='deleteFromDB' class="btn primary"/></div>
+</body>
+</html>

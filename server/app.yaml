@@ -6,6 +6,9 @@ api_version: 1
 handlers:
 - url: /html
   static_dir: html
-
+  
+- url: /api/.*
+  script: api.py
+  
 - url: /.*
   script: main.py
