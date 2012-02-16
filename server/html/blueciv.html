@@ -17,14 +17,25 @@ $ ->
     alert response
   window.keyDelHandler = (response)->
     alert response
+  window.keyUpdtHandler = (response)->
+    alert response
+  window.listHandler = (response)->
+    #alert response
+    $("#list").html response
   $("#submit").click ->
     window.formData["title"]=$("#title").val()
     window.formData["body"]=$("#body").val()
     server.post("/api/create/json",JSON.stringify(window.formData),formHandler)
   $("#keyGet").click ->
-    server.post("/api/get/json/"+$("#key").val(),"",keyGetHandler)
+    server.get("/api/get/json/"+$("#key").val(),keyGetHandler)
   $("#keyDel").click ->
     server.post("/api/delete/json/"+$("#key").val(),"",keyDelHandler)
+  $("#keyUpdt").click ->
+    window.formData["title"]=$("#title").val()
+    window.formData["body"]=$("#body").val()
+    server.post("/api/update/json/"+$("#key").val(),JSON.stringify(window.formData),keyUpdtHandler)
+  $("#listBtn").click ->
+    server.get("/api/list/json/5",listHandler)
 
 </script>
 </head>
@@ -33,7 +44,12 @@ $ ->
   <div><textarea id="body" cols="40" rows="10"></textarea></div>
   <div><input id="submit" type='button' value='Submit' class="btn primary"/></div>
   <div><input id="key" size="40" type="text" /></div>
-  <div><input id="keyGet" type='button' value='getFromDB' class="btn primary"/>
-  <input id="keyDel" type='button' value='deleteFromDB' class="btn primary"/></div>
+  <div>
+    <input id="keyGet" type='button' value='getFromDB'/>
+    <input id="keyDel" type='button' value='deleteFromDB'/>
+    <input id="keyUpdt" type='button' value='update'>
+    <input id="listBtn" type='button' value='List'>
+  </div>
+  <div><label id="list"></label></div>
 </body>
 </html>
